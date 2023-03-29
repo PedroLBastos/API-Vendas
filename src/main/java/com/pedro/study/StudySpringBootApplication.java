@@ -23,6 +23,23 @@ public class StudySpringBootApplication {
 
 			List<Cliente> todos = clientes.obterTodos();
 			todos.forEach(System.out::println);
+
+			todos.forEach(cliente -> {
+				cliente.setNome(cliente.getNome() + " atualizado");
+				clientes.atualizar(cliente);
+			});
+
+			clientes.buscarPorNome("Ped").forEach(System.out::println);
+
+
+
+			todos = clientes.obterTodos();
+			if (todos.isEmpty()){
+				System.out.println("Nenhum");
+
+			}else {
+				todos.forEach(System.out::println);
+			}
 		};
 	}
 
