@@ -18,26 +18,12 @@ public class StudySpringBootApplication {
 	@Bean
 	public CommandLineRunner init (@Autowired Clientes clientes){
 		return args -> {
-			clientes.save(new Cliente("Pedro"));
+			clientes.save(new Cliente("Lucas"));
 			clientes.save(new Cliente("Outro"));
 
-			List<Cliente> todos = clientes.findAll();
-			todos.forEach(System.out::println);
+			boolean existe = clientes.existsByNome("Pedro");
+			System.out.println("existe um cliente " + existe);
 
-			todos.forEach(cliente -> {
-				cliente.setNome(cliente.getNome() + " atualizado");
-				clientes.save(cliente);
-			});
-
-			clientes.findByNomeLike("Ped").forEach(System.out::println);
-
-			todos = clientes.findAll();
-			if (todos.isEmpty()){
-				System.out.println("Nenhum");
-
-			}else {
-				todos.forEach(System.out::println);
-			}
 		};
 	}
 
