@@ -31,8 +31,6 @@ public class StudySpringBootApplication {
 
 			clientes.buscarPorNome("Ped").forEach(System.out::println);
 
-
-
 			todos = clientes.obterTodos();
 			if (todos.isEmpty()){
 				System.out.println("Nenhum");
