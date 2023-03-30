@@ -18,20 +18,20 @@ public class StudySpringBootApplication {
 	@Bean
 	public CommandLineRunner init (@Autowired Clientes clientes){
 		return args -> {
-			clientes.salvar(new Cliente("Pedro"));
-			clientes.salvar(new Cliente("Outro"));
+			clientes.save(new Cliente("Pedro"));
+			clientes.save(new Cliente("Outro"));
 
-			List<Cliente> todos = clientes.obterTodos();
+			List<Cliente> todos = clientes.findAll();
 			todos.forEach(System.out::println);
 
 			todos.forEach(cliente -> {
 				cliente.setNome(cliente.getNome() + " atualizado");
-				clientes.atualizar(cliente);
+				clientes.save(cliente);
 			});
 
-			clientes.buscarPorNome("Ped").forEach(System.out::println);
+			clientes.findByNomeLike("Ped").forEach(System.out::println);
 
-			todos = clientes.obterTodos();
+			todos = clientes.findAll();
 			if (todos.isEmpty()){
 				System.out.println("Nenhum");
 
