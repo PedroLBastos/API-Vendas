@@ -16,7 +16,7 @@ public class StudySpringBootApplication {
     @Bean
     public CommandLineRunner commandLineRunner(@Autowired Clientes clientes) {
         return args -> {
-            Cliente c = new Cliente(null, "Pedro");
+            Cliente c = new Cliente(null, "Pedro","111111111");
             clientes.save(c);
         };
     }
