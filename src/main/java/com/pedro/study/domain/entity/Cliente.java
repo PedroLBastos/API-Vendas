@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Cliente {
     private Integer id;
 
     @Column(name = "nome" , length = 100)
+    @NotEmpty(message = "Campo nome e obrigatorio")
     private String nome;
 
     @Column(name = "cpf" , length = 11)
