@@ -1,6 +1,7 @@
 package com.pedro.study.rest.controller;
 
-import com.pedro.study.exception.RegraNegocioExceptional;
+import com.pedro.study.exception.PedidoNaoEncontradoException;
+import com.pedro.study.exception.RegraNegocioException;
 import com.pedro.study.rest.ApiErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,10 +11,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
 
-    @ExceptionHandler(RegraNegocioExceptional.class)
+    @ExceptionHandler(RegraNegocioException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiErrors handleRegraNegocioException(RegraNegocioExceptional ex) {
-        String menssagemErro = ex.getMessage();
-        return new ApiErrors(menssagemErro);
+    public ApiErrors handleRegraNegocioException(RegraNegocioException ex){
+        String mensagemErro = ex.getMessage();
+        return new ApiErrors(mensagemErro);
+    }
+
+    @ExceptionHandler(PedidoNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrors handlePedidoNotFoundException( PedidoNaoEncontradoException ex ){
+        return new ApiErrors(ex.getMessage());
     }
 }

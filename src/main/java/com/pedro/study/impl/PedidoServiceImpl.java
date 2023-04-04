@@ -9,7 +9,9 @@ import com.pedro.study.domain.repository.Clientes;
 import com.pedro.study.domain.repository.ItensPedido;
 import com.pedro.study.domain.repository.Pedidos;
 import com.pedro.study.domain.repository.Produtos;
-import com.pedro.study.exception.RegraNegocioExceptional;
+import com.pedro.study.exception.PedidoNaoEncontradoException;
+
+import com.pedro.study.exception.RegraNegocioException;
 import com.pedro.study.rest.dto.ItemPedidoDTO;
 import com.pedro.study.rest.dto.PedidoDTO;
 import com.pedro.study.service.PedidoService;
@@ -37,7 +39,7 @@ public class PedidoServiceImpl implements PedidoService{
         Integer idCliente = dto.getCliente();
         Cliente cliente = clientesRepository
                 .findById(idCliente)
-                .orElseThrow(()-> new RegraNegocioExceptional("Codigo de cliente invalido"));
+                .orElseThrow(()-> new RegraNegocioException("Codigo de cliente invalido"));
 
         Pedido pedido = new Pedido();
         pedido.setTotal(dto.getTotal());
@@ -57,9 +59,19 @@ public class PedidoServiceImpl implements PedidoService{
         return repository.findByIdFetchItems(id);
     }
 
+    @Override
+    @Transactional
+    public void atualizaStatus(Integer id, StatusPedido status) {
+        repository.findById(id)
+                .map(pedido -> {
+                    pedido.setStatus(status);
+                    return repository.save(pedido);
+                }).orElseThrow(()-> new PedidoNaoEncontradoException());
+    }
+
     private List<ItemPedido> converterItens(Pedido pedido,List<ItemPedidoDTO> itens){
         if (itens.isEmpty()){
-            throw new RegraNegocioExceptional("Nao e possivel realizar um pedido");
+            throw new RegraNegocioException("Nao e possivel realizar um pedido");
         }
 
         return itens
@@ -68,7 +80,7 @@ public class PedidoServiceImpl implements PedidoService{
                      Integer idProduto = dto.getProduto();
                      Produto produto = produtosRepository
                              .findById(idProduto)
-                             .orElseThrow(()-> new RegraNegocioExceptional("Codigo de produto invalido"));
+                             .orElseThrow(()-> new RegraNegocioException("Codigo de produto invalido"));
 
                     ItemPedido itemPedido = new ItemPedido();
                     itemPedido.setQuantidade(dto.getQuantidade());

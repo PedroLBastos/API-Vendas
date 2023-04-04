@@ -2,6 +2,8 @@ package com.pedro.study.rest.controller;
 
 import com.pedro.study.domain.entity.ItemPedido;
 import com.pedro.study.domain.entity.Pedido;
+import com.pedro.study.domain.enums.StatusPedido;
+import com.pedro.study.rest.dto.AtualizacaoStatusPedidoDTO;
 import com.pedro.study.rest.dto.InformacoesItemPedidoDTO;
 import com.pedro.study.rest.dto.InformacoesPedidoDTO;
 import com.pedro.study.rest.dto.PedidoDTO;
@@ -9,6 +11,7 @@ import com.pedro.study.service.PedidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +49,14 @@ public class PedidoController {
                 .map(p -> converter(p))
                 .orElseThrow(()->
                         new ResponseStatusException(HttpStatus.NOT_FOUND,"Pedido nao encontrado"));
+    }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateStatus(@PathVariable Integer id,
+                             @RequestBody AtualizacaoStatusPedidoDTO dto){
+        String novoStatus = dto.getNovoStatus();
+        service.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
     }
 
     private InformacoesPedidoDTO converter(Pedido pedido){
