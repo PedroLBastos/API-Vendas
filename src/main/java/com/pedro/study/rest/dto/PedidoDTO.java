@@ -1,4 +1,4 @@
-package com.pedro.study.rest.controller.dto;
+package com.pedro.study.rest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

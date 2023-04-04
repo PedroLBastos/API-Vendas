@@ -1,7 +1,7 @@
 package com.pedro.study.rest.controller;
 
 import com.pedro.study.domain.entity.Pedido;
-import com.pedro.study.rest.controller.dto.PedidoDTO;
+import com.pedro.study.rest.dto.PedidoDTO;
 import com.pedro.study.service.PedidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
