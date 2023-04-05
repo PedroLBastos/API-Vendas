@@ -1,5 +1,6 @@
 package com.pedro.study.rest.dto;
 
+import com.pedro.study.validation.NotEmptyList;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class PedidoDTO {
     private Integer cliente;
     @NotNull(message = "Campo obrigatorio")
     private BigDecimal total;
+    @NotEmptyList(message = "Pedido deve conter itens")
     private List<ItemPedidoDTO> itens;
 
 }
