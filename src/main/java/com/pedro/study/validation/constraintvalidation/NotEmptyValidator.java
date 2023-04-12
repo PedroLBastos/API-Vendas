@@ -1,8 +1,8 @@
 package com.pedro.study.validation.constraintvalidation;
 
 import com.pedro.study.validation.NotEmptyList;
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 import java.lang.annotation.Annotation;
 import java.util.List;

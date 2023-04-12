@@ -2,7 +2,7 @@ package com.pedro.study.rest.controller;
 
 import com.pedro.study.domain.entity.Cliente;
 import com.pedro.study.domain.repository.Clientes;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clientes")

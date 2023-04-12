@@ -3,7 +3,7 @@ package com.pedro.study.rest.controller;
 import com.pedro.study.domain.entity.Cliente;
 import com.pedro.study.domain.entity.Produto;
 import com.pedro.study.domain.repository.Produtos;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;

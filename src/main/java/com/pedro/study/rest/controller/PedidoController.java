@@ -8,7 +8,7 @@ import com.pedro.study.rest.dto.InformacoesItemPedidoDTO;
 import com.pedro.study.rest.dto.InformacoesPedidoDTO;
 import com.pedro.study.rest.dto.PedidoDTO;
 import com.pedro.study.service.PedidoService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
