@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/usuarios")
 @RequiredArgsConstructor
 public class UsuarioController {
-
     private final UsuarioServiceImpl usuarioService;
     private final PasswordEncoder passwordEncoder;
 
