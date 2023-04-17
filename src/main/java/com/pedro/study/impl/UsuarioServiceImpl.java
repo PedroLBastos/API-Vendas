@@ -2,6 +2,7 @@ package com.pedro.study.impl;
 
 import com.pedro.study.domain.entity.Usuario;
 import com.pedro.study.domain.repository.UsuarioRepository;
+import com.pedro.study.exception.SenhaInvalidaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,21 +14,31 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsuarioServiceImpl implements UserDetailsService {
-
     @Autowired
     private PasswordEncoder encoder;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepository repository;
 
     @Transactional
     public Usuario salvar(Usuario usuario){
-        return usuarioRepository.save(usuario);
+        return repository.save(usuario);
+    }
+
+    public UserDetails autenticar( Usuario usuario ){
+        UserDetails user = loadUserByUsername(usuario.getLogin());
+        boolean senhasBatem = encoder.matches( usuario.getSenha(), user.getPassword() );
+
+        if(senhasBatem){
+            return user;
+        }
+
+        throw new SenhaInvalidaException();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByLogin(username)
+        Usuario usuario = repository.findByLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado na base de dados."));
 
         String[] roles = usuario.isAdmin() ?
